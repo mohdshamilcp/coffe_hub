@@ -1,0 +1,647 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:  "Comic Sans MS", cursive;
+            line-height: 1.6;
+            color: #3e2723;
+            background: #f5eadc;
+        }
+
+        h1, h2, h3 {
+            font-family: Georgia, serif;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            padding: 15px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo img {
+            display: block;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #ffca28;
+        }
+
+        .phone-link {
+            white-space: nowrap;
+        }
+
+        .phone-icon {
+            margin-right: 5px;
+            font-size: 1.1em;
+        }
+
+
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url("{% static 'newapp/images/bg.jpg' %}") center / cover no-repeat;
+        }
+
+        .hero-overlay {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 40px;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-text {
+            max-width: 700px;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 15px;
+            font-size: clamp(2.2rem, 6vw, 4rem);
+        }
+
+        .hero-text p {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .hero-text span {
+            color: #ffca28;
+            font-weight: bold;
+        }
+
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            border: 0;
+            border-radius: 30px;
+            background: #ffca28;
+            color: #3e2723;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+        }
+
+
+        .section-title {
+            margin-bottom: 35px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+
+        .menu {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            color: #3e2723;
+        }
+
+        .menu .section-title {
+            color: #4e342e;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 24px;
+        }
+
+        .menu-item {
+            padding: 15px;
+            border-radius: 10px;
+            background: #fffaf3;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(50, 25, 15, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item img {
+            display: block;
+            width: 100%;
+            height: 210px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .menu-item span {
+            color: #a64b13;
+            font-weight: bold;
+        }
+
+
+        #about {
+            background: #4e342e;
+        }
+
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 35px;
+            padding-top: 60px;
+            padding-bottom: 60px;
+            color: #fff5e9;
+        }
+
+        .about-text,
+        .about-img {
+            flex: 1 1 300px;
+        }
+
+        .about-text {
+            text-align: center;
+        }
+
+        .about .section-title {
+            color: #ffcf70;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+        }
+
+        .about-img img {
+            display: block;
+            width: 90%;
+            max-height: 400px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+
+        .offers {
+            padding: 50px 0;
+            color: #3e2723;
+        }
+
+        .offers .section-title {
+            color: #4e342e;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .offer-card {
+            padding: 25px;
+            border-radius: 10px;
+            background: #fffaf3;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(50, 25, 15, 0.15);
+        }
+
+        .offer-card h3 {
+            margin-bottom: 10px;
+            color: #8d451d;
+        }
+
+
+        .reviews {
+            padding: 55px 0;
+            background: #33211c;
+            color: #fff5e9;
+        }
+
+        .reviews .section-title {
+            color: #ffcf70;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .review-card {
+            padding: 22px;
+            border: 1px solid #765345;
+            border-radius: 10px;
+            background: #4a3028;
+        }
+
+        .review-card p {
+            font-style: italic;
+        }
+
+        .review-stars {
+            margin-top: 12px;
+            color: #ffca28;
+            font-size: 1.25rem;
+            letter-spacing: 3px;
+        }
+
+        .reviewer-name {
+            display: block;
+            margin-top: 8px;
+            color: #f1d2aa;
+            font-weight: bold;
+        }
+
+
+        .review-form-title {
+            margin: 45px 0 18px;
+            color: #ffcf70;
+            text-align: center;
+        }
+
+        .review-form {
+            display: grid;
+            gap: 12px;
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 24px;
+            border-radius: 10px;
+            background: #4a3028;
+        }
+
+        .review-form > label,
+        .rating legend {
+            color: #fff5e9;
+            font-weight: bold;
+        }
+
+        .review-form input[type="text"],
+        .review-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #765345;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        .review-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            border: 0;
+        }
+
+        .rating legend {
+            float: left;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .rating input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .rating label {
+            color: #8c766c;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: #ffca28;
+        }
+
+        .review-form button {
+            justify-self: start;
+        }
+    #end {
+        min-height: 250px;
+        padding: 60px 20px;
+        background:#33211c;
+        color: #ffcf70;
+        text-align: center;
+    }
+
+    #end h2 {
+        margin-bottom: 10px;
+    }
+
+
+        footer {
+            padding: 20px 0;
+            background: #241713;
+            color: white;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links img {
+            width: 28px;
+            height: 28px;
+            margin: 5px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar container">
+            <a class="logo" href="#home">
+                <img src="{% static 'newapp/images/logo.png' %}" alt="CoffeeHub logo">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#offers">Offers</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li>
+                    <a class="phone-link" href="tel:+15551234567">
+                        <span class="phone-icon" aria-hidden="true">☎</span>
+                        +1 555 123 4567
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-overlay">
+                <div class="hero-text">
+                    <h1>Freshly Brewed Coffee, Just for You</h1>
+                    <p>Experience the perfect cup every time at <span>CoffeeHub</span>.</p>
+                    <a href="#menu" class="btn">View Menu</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="menu container">
+            <h2 class="section-title">Our Menu</h2>
+
+            <div class="menu-grid">
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/esspresso.jpg' %}" alt="Cup of espresso">
+                    <h3>Espresso</h3>
+                    <p>Strong and bold coffee shot.</p>
+                    <span>$3.00</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/latte.jpg' %}" alt="Latte with steamed milk">
+                    <h3>Latte</h3>
+                    <p>Smooth espresso with steamed milk.</p>
+                    <span>$5.00</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/cappuccino.jpg' %}" alt="Cappuccino with foam">
+                    <h3>Cappuccino</h3>
+                    <p>Espresso, steamed milk, and creamy foam.</p>
+                    <span>$4.50</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/icedlatte.jpg' %}" alt="Iced latte">
+                    <h3>Iced Latte</h3>
+                    <p>Chilled espresso blended with milk and served over ice.</p>
+                    <span>$4.00</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/coldbrew.jpg' %}" alt="Cold brew coffee">
+                    <h3>Cold Brew</h3>
+                    <p>Smooth coffee steeped slowly in cold water for a refreshing taste.</p>
+                    <span>$4.00</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/hotchocolate.jpg' %}" alt="Hot chocolate topped with cream">
+                    <h3>Hot Chocolate</h3>
+                    <p>Rich hot chocolate topped with a swirl of whipped cream.</p>
+                    <span>$7.00</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/croissant.jpg' %}" alt="Golden butter croissant">
+                    <h3>Croissant</h3>
+                    <p>Buttery, flaky pastry baked until golden and crisp.</p>
+                    <span>$5.00</span>
+                </article>
+
+                <article class="menu-item">
+                    <img src="{% static 'newapp/images/pancake.jpg' %}" alt="Pancakes with syrup">
+                    <h3>Pancake</h3>
+                    <p>Fluffy pancakes served warm with syrup and fresh toppings.</p>
+                    <span>$8.00</span>
+                </article>
+            </div>
+        </section>
+
+        <section id="about" class="about container">
+            <div class="about-text">
+                <h2 class="section-title">About Us</h2>
+                <p>
+                    At CoffeeHub, we brew every cup with carefully selected
+                    coffee beans. Our welcoming café is a comfortable place
+                    to relax, work, or meet friends over your favorite drink.
+                </p>
+                <a href="tel:+15551234567" class="btn">Call Us</a>
+            </div>
+
+            <div class="about-img">
+                <img src="{% static 'newapp/images/about.jpg' %}" alt="Inside the CoffeeHub café">
+            </div>
+        </section>
+
+        <section id="offers" class="offers">
+            <div class="container">
+                <h2 class="section-title">Special Offers</h2>
+
+                <div class="offers-grid">
+                    <article class="offer-card">
+                        <h3>Buy 1 Get 1 Free</h3>
+                        <p>Every Monday, get a free coffee with your first purchase.</p>
+                    </article>
+
+                    <article class="offer-card">
+                        <h3>Happy Hour</h3>
+                        <p>Enjoy 25% off drinks every day from 4 PM to 6 PM.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews">
+            <div class="container">
+                <h2 class="section-title">Customer Reviews</h2>
+
+                <div class="review-grid">
+                    <article class="review-card">
+                        <p>“Best coffee in town! The aroma and taste are unbeatable.”</p>
+                        <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                        <span class="reviewer-name">— Sarah J.</span>
+                    </article>
+
+                    <article class="review-card">
+                        <p>“A cozy place with friendly staff and great service.”</p>
+                        <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                        <span class="reviewer-name">— Michael B.</span>
+                    </article>
+
+                    <article class="review-card">
+                        <p>“Their cappuccino is my favorite. Highly recommend!”</p>
+                        <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                        <span class="reviewer-name">— Emma L.</span>
+                    </article>
+                </div>
+
+                <h3 class="review-form-title">Leave a Review</h3>
+
+                <form class="review-form" method="post" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="review">
+
+                    <label for="review-name">Your name</label>
+                    <input id="review-name" type="text" name="name"
+                           placeholder="Your name" required>
+
+                    <label for="review-message">Your review</label>
+                    <textarea id="review-message" name="message"
+                              placeholder="Write about your experience..."
+                              required></textarea>
+
+                    <fieldset class="rating">
+
+
+                        <input id="star5" type="radio" name="rating" value="5" required>
+                        <label for="star5" aria-label="5 stars">★</label>
+
+                        <input id="star4" type="radio" name="rating" value="4">
+                        <label for="star4" aria-label="4 stars">★</label>
+
+                        <input id="star3" type="radio" name="rating" value="3">
+                        <label for="star3" aria-label="3 stars">★</label>
+
+                        <input id="star2" type="radio" name="rating" value="2">
+                        <label for="star2" aria-label="2 stars">★</label>
+
+                        <input id="star1" type="radio" name="rating" value="1">
+                        <label for="star1" aria-label="1 star">★</label>
+                    </fieldset>
+
+                    <button class="btn" type="submit">Submit Review</button>
+                </form>
+            </div>
+
+        </section>
+        <section class="page-section" id="end">
+      <h2>ThankYou For Choosing Us</h2>
+          <h3>Visit Again</h3>
+    </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CoffeeHub. All rights reserved.</p>
+
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">
+                    <img src="{% static 'newapp/images/facebook.png' %}" alt="Facebook">
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <img src="{% static 'newapp/images/insta.png' %}" alt="Instagram">
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <img src="{% static 'newapp/images/x.png' %}" alt="Twitter">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
